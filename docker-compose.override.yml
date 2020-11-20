@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  redis_svc:
+    ports:
+      - '6379:6379'
+    networks:
+      - app_network
+
+  app_svc:
+    build:
+      context: ./
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    environment:
+      REDIS_DOMAIN: redis://redis_svc:6379
+      IS_OFFLINE: 0
+    volumes:
+      - app_data:/code
+    ports:
+      - '8000:8000'
+    depends_on:
+      - redis_svc
+    networks:
+      - app_network
+
+  celery-worker:
+    build:
+      context: ./
+    command: celery  -A platform_challenge worker -l info
+    volumes:
+      - app_data:/code
+    environment:
+      DEBUG: 1
+      DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1]
+      REDIS_DOMAIN: redis://redis_svc:6379
+      IS_OFFLINE: 0
+    depends_on:
+      - redis_svc
+      - app_svc
+    networks:
+      - app_network
+volumes:
+  app_data:
+
+networks:
+  app_network:
