@@ -16,7 +16,7 @@ Besides, the application was dockerized in order to easily be distributed and fo
 ## Challenge conclusions
 - The solution implemented for the diffing process is a "naive" solution, that certainly can be improved.
 - Since the solution is considered "production-ready", was preferred to be dockerized, easing the process of running the application, even better, to ship it out using a service such as AWS ECS fargate.
-- Time of execution: revenue metric: 72.319462348s, c_revenue metric: 459.116917938s
+- Time of execution: revenue metric: 63.289096320999995s, c_revenue metric: 72.828095022s
 - The way this was implemented, the time increments exponentially the number of rows in the dataset. Some other better approaches may be explored:
     * Explore pandas and its API in order to find a better way, there should be a recipe for this kind of scenario.
     * Implement a solution based on map reduce, guaranteeing the data sets will be handle as segmented chunks, improved the way those are processed.

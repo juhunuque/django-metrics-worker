@@ -11,7 +11,7 @@ REVENUE_CSV = dict(
         'value': 'category',
     },
     group_columns=['date', 'segment_field', 'segment_value_id', 'stat'],
-    columns=['date', 'segment_field', 'segment_name', 'segment_value', 'segment_value_id', 'stat'],
+    columns=['date', 'segment_field', 'segment_name', 'segment_value', 'segment_value_id', 'stat', 'value'],
     date_column='date'
 )
 
